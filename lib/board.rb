@@ -27,4 +27,12 @@ class Board
       @board_cases << BoardCase.new(index, row, column)
     end
   end
+
+  def get_symbol(index)
+    if @board_cases[index].player == false
+      ' '
+    else
+      @board_cases[index].player.symbol
+    end
+  end
 end

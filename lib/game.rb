@@ -3,14 +3,13 @@
 class Game
   attr_accessor :players, :board
 
-  def initialize
-    @players = []
+  def initialize(players = [])
+    @players = players
   end
 
   def check_board
-    board_case_by_player = selected_board_case_by_player
     @players.each do |player|
-      return player if verify_board_case(player, board_case_by_player)
+      return player if verify_winner(player, selected_board_case_by_player)
     end
     false
   end
@@ -19,6 +18,13 @@ class Game
     board_case_by_player = @board.board_cases.group_by(&:player)
     board_case_by_player.delete(false)
     board_case_by_player
+  end
+
+  def verify_winner(player, board_case_by_player)
+    [verify_diagonal_a1_b2_c3(player),
+     verify_diagonal_a3_b2_c1(player),
+     verify_column(player, board_case_by_player),
+     verify_row(player, board_case_by_player)].any?
   end
 
   def verify_diagonal_a1_b2_c3(player)
@@ -47,17 +53,11 @@ class Game
 
   def verify_row(player, board_case_by_player)
     board_case_by_player_and_row = board_case_by_player[player].group_by(&:row)
+
     %w[A B C].each do |row|
       next if board_case_by_player_and_row[row].nil?
       return true if board_case_by_player_and_row[row].length == 3
     end
     false
-  end
-
-  def verify_board_case(player, board_case_by_player)
-    [verify_diagonal_a1_b2_c3(player),
-     verify_diagonal_a3_b2_c1(player),
-     verify_column(player, board_case_by_player),
-     verify_row(player, board_case_by_player)].any?
   end
 end

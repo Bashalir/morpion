@@ -9,8 +9,8 @@ describe 'Game' do
   before do
     @game = Game.new
     @game.board = Board.new
-    @player1 = Player.new('player1')
-    @player2 = Player.new('player2')
+    @player1 = Player.new('player1', 'X')
+    @player2 = Player.new('player2', 'O')
     @game.players = [@player1, @player2]
   end
 

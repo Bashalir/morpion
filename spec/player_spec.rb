@@ -7,8 +7,8 @@ require 'board_case'
 
 describe 'Player' do
   before do
-    @player1 = Player.new('player1')
-    @player2 = Player.new('player2')
+    @player1 = Player.new('player1', 'X')
+    @player2 = Player.new('player2', 'O')
     @board = Board.new
   end
 

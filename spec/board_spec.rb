@@ -8,8 +8,8 @@ require 'board_case'
 describe 'Board' do
   before do
     @game = Game.new
-    @player1 = Player.new('player1')
-    @player2 = Player.new('player2')
+    @player1 = Player.new('player1', 'X')
+    @player2 = Player.new('player2', 'O')
     @board = Board.new
   end
 
@@ -38,5 +38,14 @@ describe 'Board' do
     expect(@board.board_cases[8].row).to eq('C')
     expect(@board.board_cases[8].column).to eq(3)
     expect(@board.board_cases[8].player).to be false
+  end
+
+  it 'Should get_symbol return"X" if the player1 choose "A1"' do
+    @player1.select_a_board_case(@board, 'A', 1)
+    expect(@board.get_symbol(0)).to eq('X')
+  end
+  it 'Should get_symbol return"O" if the player2 choose "B2"' do
+    @player2.select_a_board_case(@board, 'B', 2)
+    expect(@board.get_symbol(4)).to eq('O')
   end
 end
