@@ -2,9 +2,10 @@
 
 class Show
   def presentation
+    system 'clear'
     print "Un premier joueur dessine son symbole sur une case.
     Puis c'est au tour de l'autre joueur de dessiner son symbole sur une case vide.
-    Le but du jeu est de réussir à aligner ses trois symboles, on remporte alors la partie.\n"
+    Le but du jeu est de réussir à aligner ses trois symboles, on remporte alors la partie.\n\n"
   end
 
   def players_inscription
@@ -48,19 +49,40 @@ class Show
     puts "Tour #{turn}"
     puts '=============='
     puts "#{player_name} choisi une case en entrant sa ligne suivi de sa colonne"
-    puts 'exemple : B4'
+    puts 'exemple : B4' if turn == 1
     print '> '
     player_choice = gets.chomp
 
-    limited_choice = /^[a-zA-Z]{1}[1-3]{1}$/
+    limited_choice = /^[a-cA-C]{1}[1-3]{1}$/
 
     if player_choice.length == 2 && player_choice =~ limited_choice
       return [player_choice[0].upcase, player_choice[1].to_i]
     end
+    false
+  end
 
+  def wrong_entry
     puts '*******# ERREUR MAUVAISE SAISIE #******* '
     sleep(1)
     puts `clear`
-    false
+  end
+
+  def winner(player_name, turn)
+    puts "BRAVO #{player_name} ! TU AS GAGNE ! EN #{turn} TOUR !"
+   end
+
+  def draw
+    puts 'PAS DE GAGNANT QUE DES LOOSERS :)'
+  end
+
+  def play_again
+    choice = ''
+    loop do
+      puts "\n"
+      puts 'Appuyer sur la touche "r" pour rejouer ou "q" pour quitter'
+      choice = gets.chomp.upcase
+      break if choice == 'R' || choice == 'Q'
+    end
+    choice
   end
 end

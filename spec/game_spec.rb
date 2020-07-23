@@ -68,4 +68,12 @@ describe 'Game' do
     @player1.select_a_board_case(@game.board, 'C', 1)
     expect(@game.check_board).to be @player2
   end
+
+  it 'Should return Player2 if Player2 selected A1 B1 C3' do
+    @player2.select_a_board_case(@game.board, 'A', 1)
+    @player2.select_a_board_case(@game.board, 'A', 2)
+    @player2.select_a_board_case(@game.board, 'A', 3)
+    @player1.select_a_board_case(@game.board, 'C', 1)
+    expect(@game.check_board).to be @player2
+  end
 end

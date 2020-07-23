@@ -12,6 +12,10 @@ class Player
     index_of_selected_board_case = board.board_cases.find_index do |board_case|
       board_case.row == row && board_case.column == column
     end
-    board.board_cases[index_of_selected_board_case].player = self
+    if board.board_cases[index_of_selected_board_case].player == false
+      return board.board_cases[index_of_selected_board_case].player = self
+    else
+      false
+ end
   end
 end
